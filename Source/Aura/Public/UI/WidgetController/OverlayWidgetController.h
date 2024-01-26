@@ -18,7 +18,7 @@ UCLASS(BlueprintType, Blueprintable)
 class AURA_API UOverlayWidgetController : public UAuraWidgetController
 {
 	GENERATED_BODY()
-public:
+public: 
 	virtual void BroadcastInitialValues() override;
 	virtual void BindCallbacksToDependencies() override;
 
