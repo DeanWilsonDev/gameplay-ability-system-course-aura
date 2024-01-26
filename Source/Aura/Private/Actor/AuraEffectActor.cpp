@@ -43,15 +43,12 @@ void AAuraEffectActor::ApplyEffectToTarget(
 		*EffectSpecHandle.Data.Get()
 	);
 
-	if (Effect.EffectType == EEffectType::Infinite)
+	if (EffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy ==
+		EGameplayEffectDurationType::Infinite)
 	{
-		if (const bool bIsInfinite = EffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy ==
-			EGameplayEffectDurationType::Infinite; bIsInfinite)
+		if (Effect.RemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
 		{
-			if (Effect.RemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
-			{
-				ActiveEffectHandles.Add(ActiveEffectHandle, TargetAbilitySystemComponent);
-			}
+			ActiveEffectHandles.Add(ActiveEffectHandle, TargetAbilitySystemComponent);
 		}
 	}
 }
@@ -60,28 +57,9 @@ void AAuraEffectActor::OnOverlap(AActor* TargetActor)
 {
 	for (const FEffectType& Effect : Effects)
 	{
-		if (Effect.EffectType == EEffectType::Instant)
+		if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 		{
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
-		}
-
-		if (Effect.EffectType == EEffectType::Duration)
-		{
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
-		}
-
-		if (Effect.EffectType == EEffectType::Infinite)
-		{
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
+			ApplyEffectToTarget(TargetActor, Effect);
 		}
 	}
 }
@@ -90,33 +68,13 @@ void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
 {
 	for (const FEffectType& Effect : Effects)
 	{
-		if (Effect.EffectType == EEffectType::Instant)
+		if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 		{
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
-
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
-		}
-		if (Effect.EffectType == EEffectType::Duration)
-		{
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
+			ApplyEffectToTarget(TargetActor, Effect);
 		}
 
 		if (Effect.EffectType == EEffectType::Infinite)
 		{
-			if (Effect.ApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
-			{
-				ApplyEffectToTarget(TargetActor, Effect);
-			}
-
 			if (Effect.RemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
 			{
 				UAbilitySystemComponent* TargetAbilitySystemComponent =

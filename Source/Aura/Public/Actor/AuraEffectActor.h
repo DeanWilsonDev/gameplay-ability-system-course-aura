@@ -49,6 +49,7 @@ struct FEffectType
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects")
 	EEffectRemovalPolicy RemovalPolicy = EEffectRemovalPolicy::DoNotRemove;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects")
 	EEffectType EffectType = EEffectType::Instant;
 };
 
