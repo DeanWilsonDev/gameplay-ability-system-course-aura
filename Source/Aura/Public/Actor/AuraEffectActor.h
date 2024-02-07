@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
 
+enum class EGameplayEffectDurationType : uint8;
 class UAbilitySystemComponent;
 class UGameplayEffect;
 
@@ -27,14 +28,6 @@ enum class EEffectRemovalPolicy
 	DoNotRemove
 };
 
-UENUM(BlueprintType)
-enum class EEffectType
-{
-	Instant,
-	Duration,
-	Infinite
-};
-
 USTRUCT(BlueprintType)
 struct FEffectType
 {
@@ -50,7 +43,8 @@ struct FEffectType
 	EEffectRemovalPolicy RemovalPolicy = EEffectRemovalPolicy::DoNotRemove;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects")
-	EEffectType EffectType = EEffectType::Instant;
+	// TODO: Find a way to set this automatically from the selected effect
+	EGameplayEffectDurationType DurationPolicy; 
 };
 
 UCLASS()
