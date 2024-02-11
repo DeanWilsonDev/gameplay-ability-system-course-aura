@@ -41,10 +41,6 @@ struct FEffectType
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects")
 	EEffectRemovalPolicy RemovalPolicy = EEffectRemovalPolicy::DoNotRemove;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Applied Effects")
-	// TODO: Find a way to set this automatically from the selected effect
-	EGameplayEffectDurationType DurationPolicy; 
 };
 
 UCLASS()

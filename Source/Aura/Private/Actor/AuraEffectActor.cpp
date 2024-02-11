@@ -72,7 +72,7 @@ void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
 			ApplyEffectToTarget(TargetActor, Effect);
 		}
 
-		if (Effect.DurationPolicy == EGameplayEffectDurationType::Infinite)
+		if (Effect.GameplayEffect.GetDefaultObject()->DurationPolicy == EGameplayEffectDurationType::Infinite)
 		{
 			if (Effect.RemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
 			{
