@@ -7,7 +7,6 @@
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
 
-enum class EGameplayEffectDurationType : uint8;
 class UAbilitySystemComponent;
 class UGameplayEffect;
 
